@@ -10,8 +10,9 @@ define({
     *init() {
         yield stopInputDisplay()
         yield typewriterMessages([
-            ['STARSHIP UA-2342 "PEREGRINE"', 1],
-            ['ENGINEERING MAIN TERMINAL', 1],
+            ['', 8],
+            ['STARSHIP UA-2342 "PEREGRINE"', 2],
+            ['ENGINEERING MAIN TERMINAL', 2],
             ['\nAUTHORIZATION REQUIRED', 0],
         ])
         let playerName = yield waitForInput('Enter your name')
@@ -112,39 +113,6 @@ define({
         return startInputDisplay(() => [''])
     },
 
-    typewriterMessage(message, pause = -1) {
-        return function*() {
-            let frames = 0
-            let cursor = '_'
-            yield startDisplay(() => {
-                return [
-                    message.slice(0, frames) + cursor
-                ]
-            })
-            yield function*() {
-                yield wait(0.05)
-                frames = frames + 1
-                if (frames < message.length) {
-                    yield retry()
-                }
-            }
-            if (pause > 0) {
-                yield function*() {
-                    if (pause === 0) return
-                    cursor = cursor ? '' : '_'
-                    yield wait(0.4)
-                    pause--;
-                    yield retry()
-                }
-            } else {
-                yield startTimer(0.4, () => [
-                    cursor = cursor ? '' : '_'
-                ])
-                yield waitForAnyKey()
-            }
-        }
-    },
-
     typewriterMessages(messages) {
         return function*() {
             let cursor = '_'
@@ -176,7 +144,7 @@ define({
                 }
                 yield function*() {
                     if (pause > 0) {
-                        yield wait(0.4)
+                        yield wait(0.2)
                         cursor = cursor ? '' : '_'
                         pause = pause - 1
                         yield retry()
