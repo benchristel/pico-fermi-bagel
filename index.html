@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Pico, Fermi, Bagel</title>
   </head>
-  <body style="margin: 0">
+  <body style="margin:0;background-color:#000;">
     <script id="program" type="application/x-dont-run-me">
 define({
     *init() {
@@ -181,7 +181,7 @@ function iframeLoaded() {
     <iframe
       id="verse"
       src="https://druidic.github.io/#pico-fermi-bagel"
-      style="width:100vw;height:100vh;border:none"
+      style="width:calc(100% - 10px);height:calc(100vh - 10px);border:none"
       onload="iframeLoaded()"></iframe>
   </body>
 </html>
