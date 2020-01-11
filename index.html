@@ -7,7 +7,7 @@
   <body style="margin:0;background-color:#000;">
     <script id="program" type="application/x-dont-run-me">
 define({
-    *init() {
+    *run() {
         yield stopInputDisplay()
         yield typewriterMessages([
             ['', 8],
@@ -81,32 +81,6 @@ define({
             ' ',
             '         (actual game coming soon!)'
         ])
-    },
-
-    waitForInput(prompt) {
-        return function*() {
-            let entered = ''
-            yield startInputDisplay(() => {
-                return [
-                    prompt,
-                    '> ' + entered + '_'
-                ]
-            })
-            yield function*() {
-                let c = yield waitForChar()
-                if (c === 'Enter') {
-                    return
-                }
-                if (c === 'Backspace' || !c) {
-                    entered = entered.slice(0, entered.length - 1)
-                } else {
-                    entered += c
-                }
-                yield retry()
-            }
-            yield stopInputDisplay()
-            return entered
-        }
     },
 
     stopInputDisplay() {
